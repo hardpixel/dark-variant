@@ -4,8 +4,6 @@ const Gtk            = imports.gi.Gtk
 const Gio            = imports.gi.Gio
 const Pango          = imports.gi.Pango
 const ExtensionUtils = imports.misc.extensionUtils
-const Me             = ExtensionUtils.getCurrentExtension()
-const Convenience    = Me.imports.convenience
 
 var DarkVariantSettings = GObject.registerClass(
   class DarkVariantPrefsWidget extends Gtk.ScrolledWindow {
@@ -52,7 +50,7 @@ var DarkVariantSettings = GObject.registerClass(
       this._list.append(new NewAppRow())
       this._list.connect('row-activated', this._onAddActivated.bind(this))
 
-      this._settings = Convenience.getSettings()
+      this._settings = ExtensionUtils.getSettings()
       this._changeId = this._settings.connect(
         'changed::applications',
         this._onSync.bind(this)
@@ -231,7 +229,7 @@ class NewAppDialog extends Gtk.AppChooserDialog {
 })
 
 function init() {
-  Convenience.initTranslations()
+  ExtensionUtils.initTranslations()
 }
 
 function buildPrefsWidget() {

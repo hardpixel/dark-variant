@@ -1,6 +1,6 @@
-const Shell = imports.gi.Shell
-const Util  = imports.misc.util
-const Me    = imports.misc.extensionUtils.getCurrentExtension()
+const Shell          = imports.gi.Shell
+const Util           = imports.misc.util
+const ExtensionUtils = imports.misc.extensionUtils
 
 function getXid(win) {
   const desc  = win.get_description()
@@ -57,7 +57,7 @@ class ShellApp {
 
 class DarkVariant {
   constructor() {
-    this.settings  = Me.imports.convenience.getSettings()
+    this.settings  = ExtensionUtils.getSettings()
     this.appSystem = Shell.AppSystem.get_default()
     this.appsList  = new Map()
 
