@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="gnome-shell-extensions">
+  <schema id="org.gnome.shell.extensions.dark-variant" path="/org/gnome/shell/extensions/dark-variant/">
+    <key type="as" name="applications">
+      <default>[]</default>
+      <summary>Applications list</summary>
+      <description>A list of applications to apply dark variant</description>
+    </key>
+  </schema>
+</schemalist>
