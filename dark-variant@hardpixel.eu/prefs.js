@@ -233,8 +233,5 @@ function init() {
 }
 
 function buildPrefsWidget() {
-  const widget = new DarkVariantSettings()
-  widget.show_all && widget.show_all()
-
-  return widget
+  return new DarkVariantSettings()
 }
