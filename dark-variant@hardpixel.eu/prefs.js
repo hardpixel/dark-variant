@@ -67,12 +67,15 @@ var DarkVariantSettings = GObject.registerClass(
     _onSync() {
       const oldApps = [...this._list].filter(row => !!row.id)
       const newApps = this._settings.get_strv('applications')
+        .map(id => Gio.DesktopAppInfo.new(id))
+        .filter(appInfo => !!appInfo)
 
       this._settings.block_signal_handler(this._changeId)
 
-      newApps.forEach((id, index) => {
+      newApps.forEach((appInfo, index) => {
+        const id = appInfo.get_id()
+
         if (!oldApps.some(row => row.id === id)) {
-          const appInfo = Gio.DesktopAppInfo.new(id)
           this._list.insert(new AppRow(appInfo), index)
         }
       })
