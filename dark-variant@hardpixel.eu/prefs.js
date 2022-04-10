@@ -81,7 +81,7 @@ var DarkVariantSettings = GObject.registerClass(
       })
 
       oldApps.forEach((row, index) => {
-        if (!newApps.some(id => row.id === id)) {
+        if (!newApps.some(appInfo => row.id === appInfo.get_id())) {
           this._list.remove(row)
         }
       })
