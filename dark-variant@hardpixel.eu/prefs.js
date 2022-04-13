@@ -1,51 +1,24 @@
 const GLib           = imports.gi.GLib
 const GObject        = imports.gi.GObject
+const Adw            = imports.gi.Adw
 const Gtk            = imports.gi.Gtk
 const Gio            = imports.gi.Gio
 const Pango          = imports.gi.Pango
 const ExtensionUtils = imports.misc.extensionUtils
 
 var DarkVariantSettings = GObject.registerClass(
-  class DarkVariantPrefsWidget extends Gtk.ScrolledWindow {
+  class DarkVariantPrefsWidget extends Adw.PreferencesGroup {
     _init() {
       super._init({
-        hscrollbar_policy: Gtk.PolicyType.NEVER
+        title: 'Applications'
       })
-
-      const box = new Gtk.Box({
-        orientation: Gtk.Orientation.VERTICAL,
-        halign: Gtk.Align.CENTER,
-        spacing: 12,
-        margin_top: 36,
-        margin_bottom: 36,
-        margin_start: 36,
-        margin_end: 36
-      })
-
-      this.set_child(box)
-
-      const label = new Gtk.Label({
-        label: '<b>Applications</b>',
-        use_markup: true,
-        halign: Gtk.Align.START
-      })
-
-      box.append(label)
 
       this._list = new Gtk.ListBox({
         selection_mode: Gtk.SelectionMode.NONE,
-        valign: Gtk.Align.START,
-        show_separators: true
+        css_classes: ['boxed-list']
       })
 
-      box.append(this._list)
-
-      const cssProvider = new Gtk.CssProvider()
-      cssProvider.load_from_data('list { min-width: 30em; }')
-
-      const context = this._list.get_style_context()
-      context.add_provider(cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-      context.add_class('frame')
+      this.add(this._list)
 
       this._list.append(new NewAppRow())
       this._list.connect('row-activated', this._onAddActivated.bind(this))
@@ -92,50 +65,32 @@ var DarkVariantSettings = GObject.registerClass(
 )
 
 const AppRow = GObject.registerClass(
-  class AppRow extends Gtk.ListBoxRow {
+  class AppRow extends Adw.ActionRow {
     _init(appInfo) {
-      const box = new Gtk.Box({
-        spacing: 6,
-        margin_top: 6,
-        margin_bottom: 6,
-        margin_start: 6,
-        margin_end: 6
-      })
-
       super._init({
         activatable: false,
-        child: box
+        title: appInfo.get_display_name()
       })
 
       this._appInfo  = appInfo
       this._settings = ExtensionUtils.getSettings()
 
       const icon = new Gtk.Image({
+        css_classes: ['icon-dropshadow'],
         gicon: appInfo.get_icon(),
         pixel_size: 32
       })
 
-      const context = icon.get_style_context()
-      context.add_class('icon-dropshadow')
-
-      box.append(icon)
-
-      const label = new Gtk.Label({
-        label: appInfo.get_display_name(),
-        halign: Gtk.Align.START,
-        hexpand: true,
-        max_width_chars: 20,
-        ellipsize: Pango.EllipsizeMode.END
-      })
-
-      box.append(label)
+      this.add_prefix(icon)
 
       const button = new Gtk.Button({
-        icon_name: 'edit-delete-symbolic'
+        icon_name: 'edit-delete-symbolic',
+        has_frame: false,
+        valign: Gtk.Align.CENTER
       })
 
       button.connect('clicked', this._onRemoveClicked.bind(this))
-      box.append(button)
+      this.add_suffix(button)
     }
 
     get id() {
