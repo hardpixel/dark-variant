@@ -22,4 +22,4 @@ Arch Linux: [AUR package](https://aur.archlinux.org/packages/gnome-shell-extensi
 Bug reports and pull requests are welcome on GitHub at https://github.com/hardpixel/dark-variant.
 
 ## License
-Dash to Plank is available as open source under the terms of the [GPLv3](http://www.gnu.org/licenses/gpl-3.0.en.html)
+Dark Variant is available as open source under the terms of the [GPLv3](http://www.gnu.org/licenses/gpl-3.0.en.html)
