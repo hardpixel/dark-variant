@@ -4,7 +4,7 @@
   "url": "https://github.com/hardpixel/dark-variant",
   "settings-schema": "org.gnome.shell.extensions.dark-variant",
   "gettext-domain": "dark-variant",
-  "version": 8,
+  "version": 9,
   "name": "Dark Variant",
   "description": "Enable dark window decorations on applications. This extension is not compatible with applications that use Client Side Decorations (CSD).\n\nThis extension depends on some Xorg utilities. To install them:\n- Debian/Ubuntu: apt install x11-utils\n- Fedora/RHEL: dnf install xorg-x11-utils\n- Arch: pacman -S xorg-xprop\n\n*Settings are provided to enable/disable applications."
 }
