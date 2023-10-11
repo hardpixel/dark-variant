@@ -1,9 +1,7 @@
-import GLib from 'gi://GLib'
 import GObject from 'gi://GObject'
 import Adw from 'gi://Adw'
 import Gtk from 'gi://Gtk'
 import Gio from 'gi://Gio'
-import Pango from 'gi://Pango'
 import * as Prefs from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js'
 
 class DarkVariantPrefsWidget extends Adw.PreferencesGroup {
