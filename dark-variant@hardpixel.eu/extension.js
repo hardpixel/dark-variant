@@ -1,6 +1,6 @@
-const Shell          = imports.gi.Shell
-const Util           = imports.misc.util
-const ExtensionUtils = imports.misc.extensionUtils
+import Shell from 'gi://Shell'
+import * as Util from 'resource:///org/gnome/shell/misc/util.js'
+import * as Ext from 'resource:///org/gnome/shell/extensions/extension.js'
 
 function getXid(win) {
   const desc  = win.get_description()
@@ -56,8 +56,8 @@ class ShellApp {
 }
 
 class DarkVariant {
-  constructor() {
-    this.settings  = ExtensionUtils.getSettings()
+  constructor(ext) {
+    this.settings  = ext.getSettings()
     this.appSystem = Shell.AppSystem.get_default()
     this.appsList  = new Map()
 
@@ -90,14 +90,14 @@ class DarkVariant {
   }
 }
 
-let darkVariant = null
+export default class Extension extends Ext.Extension {
+  enable() {
+    this.darkVariant = new DarkVariant(this)
+    this.darkVariant.activate()
+  }
 
-function enable() {
-  darkVariant = new DarkVariant()
-  darkVariant.activate()
-}
-
-function disable() {
-  darkVariant.destroy()
-  darkVariant = null
+  disable() {
+    this.darkVariant.destroy()
+    this.darkVariant = null
+  }
 }
