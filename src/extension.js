@@ -1,6 +1,6 @@
-import Shell from 'gi://Shell'
-import * as Util from 'resource:///org/gnome/shell/misc/util.js'
-import * as Ext from 'resource:///org/gnome/shell/extensions/extension.js'
+import { Shell } from '#gi'
+import { spawn } from '#misc/util'
+import { Extension } from '#extensions/extension'
 
 function getXid(win) {
   const desc  = win.get_description()
@@ -11,7 +11,7 @@ function getXid(win) {
 
 function setVariant(xid, value) {
   const hint = '_GTK_THEME_VARIANT'
-  Util.spawn(['xprop', '-id', xid, '-f', hint, '8u', '-set', hint, value])
+  spawn(['xprop', '-id', xid, '-f', hint, '8u', '-set', hint, value])
 }
 
 function applyVariant(win, variant) {
@@ -55,15 +55,17 @@ class ShellApp {
   }
 }
 
-class DarkVariant {
-  constructor(ext) {
-    this.settings  = ext.getSettings()
+export default class DarkVariant extends Extension {
+  enable() {
+    this.settings  = this.getSettings()
     this.appSystem = Shell.AppSystem.get_default()
     this.appsList  = new Map()
 
     this.settingsChangedID = this.settings.connect(
       'changed::applications', this.activate.bind(this)
     )
+
+    this.activate()
   }
 
   activate() {
@@ -84,20 +86,11 @@ class DarkVariant {
     })
   }
 
-  destroy() {
-    this.settings.disconnect(this.settingsChangedID)
-    this.appsList.forEach(app => app.destroy())
-  }
-}
-
-export default class Extension extends Ext.Extension {
-  enable() {
-    this.darkVariant = new DarkVariant(this)
-    this.darkVariant.activate()
-  }
-
   disable() {
-    this.darkVariant.destroy()
-    this.darkVariant = null
+    this.settings?.disconnect(this.settingsChangedID)
+    this.appsList?.forEach(app => app.destroy())
+
+    this.settings = null
+    this.appsList = null
   }
 }

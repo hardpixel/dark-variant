@@ -1,8 +1,5 @@
-import GObject from 'gi://GObject'
-import Adw from 'gi://Adw'
-import Gtk from 'gi://Gtk'
-import Gio from 'gi://Gio'
-import * as Prefs from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js'
+import { GObject, Adw, Gtk, Gio } from '#gi'
+import { ExtensionPreferences } from '#extensions/prefs'
 
 class DarkVariantPrefsWidget extends Adw.PreferencesGroup {
   static {
@@ -196,7 +193,7 @@ class NewAppDialog extends Gtk.AppChooserDialog {
 
 let preferences = null
 
-export default class Preferences extends Prefs.ExtensionPreferences {
+export default class Preferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     preferences = this
 
