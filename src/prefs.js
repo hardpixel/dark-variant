@@ -1,7 +1,7 @@
 import { GObject, Adw, Gtk, Gio } from '#gi'
 import { ExtensionPreferences } from '#extensions/prefs'
 
-class DarkVariantPrefsWidget extends Adw.PreferencesGroup {
+class PreferencesGroup extends Adw.PreferencesGroup {
   static {
     GObject.registerClass(this)
   }
@@ -193,12 +193,12 @@ class NewAppDialog extends Gtk.AppChooserDialog {
 
 let preferences = null
 
-export default class Preferences extends ExtensionPreferences {
+export default class DarkVariantPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     preferences = this
 
     const page = Adw.PreferencesPage.new()
-    const pref = new DarkVariantPrefsWidget()
+    const pref = new PreferencesGroup()
 
     page.add(pref)
     window.add(page)
