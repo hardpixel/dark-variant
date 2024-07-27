@@ -1,6 +1,6 @@
 {
   "name": "dark-variant",
-  "version": "11",
+  "version": "12",
   "description": "GNOME Shell extension to apply dark window decorations",
   "repository": "https://github.com/hardpixel/dark-variant",
   "author": "Jonian Guveli",
