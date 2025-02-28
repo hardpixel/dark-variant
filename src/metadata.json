@@ -1,5 +1,5 @@
 {
-  "shell-version": ["45", "46", "47"],
+  "shell-version": ["45", "46", "47", "48"],
   "uuid": "dark-variant@hardpixel.eu",
   "url": "https://github.com/hardpixel/dark-variant",
   "settings-schema": "org.gnome.shell.extensions.dark-variant",
